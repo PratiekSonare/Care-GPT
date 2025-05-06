@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Oswald:wght@700&display=swap" rel="stylesheet">    <title>Prompt Count</title>
+    <style>
+      body {
+          font-family: Arial, sans-serif;
+          background-color: #bbc6fe;
+          color: #333;
+          margin: 0;
+          padding: 0px;
+          border: 6px solid #000;
+      }
+      h4 {
+          color: #333; /* Green color for headings */
+          margin-bottom: -40px;
+          font-family: "Lato", sans-serif;
+          font-weight: 400;
+          font-style: normal;
+      }
+
+      p {
+          color: #000;
+          stroke: 1px solid #000;
+          padding: 5px;
+          margin-bottom: 0px;
+          transition: box-shadow 0.3s;
+          /* font-family: "Lato", sans-serif;
+          font-weight: 900;
+          font-style: normal; */
+          font-size: 50px;
+          font-family: "Oswald", sans-serif;
+          font-optical-sizing: auto;
+          font-weight: 700;
+          font-style: normal;
+      }
+
+      /* Flexbox layout for better alignment */
+      .container {
+          width: 350px;
+          display: flex;
+          flex-direction: column;
+          gap: 0px; 
+      }
+
+    .grid-shyt {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        gap: 0px; /* optional space between grid items */
+    }
+
+    /* reference */
+    /* .div-center-border {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid #575757;
+    } */
+
+    /* logo */
+    .div-center {
+        position: relative;
+        padding: 20px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .div-center::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: url('assets/logo.svg');
+        background-size: 35%;
+        background-position: calc(100% + 10px) calc(50% + 15px);
+        background-repeat: no-repeat;
+        opacity: 1;
+        z-index: 1;
+    }
+
+    .div-center > * {
+        position: relative;
+        z-index: 2;
+    }
+
+    /* water */
+    .div-center-border-water {
+        position: relative;
+        padding: 20px;
+        border: 1px solid #575757;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .div-center-border-water::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: url('assets/water.gif');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        opacity: 0.4;
+        z-index: 1;
+    }
+
+    .div-center-border-water > * {
+        position: relative;
+        z-index: 2;
+    }
+
+    /* fire */
+    .div-center-border-fire {
+        position: relative;
+        padding: 20px;
+        border: 1px solid #575757;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .div-center-border-fire::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: url('assets/fire.gif');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        /* background-position-y: -30px; */
+        opacity: 0.4;
+        z-index: 1;
+    }
+
+    .div-center-border-fire > * {
+        position: relative;
+        z-index: 2;
+    }
+    
+    /* elec */
+    .div-center-border-elec {
+        position: relative;
+        padding: 20px;
+        border: 1px solid #575757;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .div-center-border-elec::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: url('assets/elec.gif');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        opacity: 0.4;
+        z-index: 1;
+    }
+
+    .div-center-border-elec > * {
+        position: relative;
+        z-index: 2;
+    }
+
+    /* tree  */
+    .div-center-border-tree {
+        position: relative;
+        padding: 20px;
+        border: 1px solid #575757;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .div-center-border-tree::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: url('assets/tree.gif');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        opacity: 0.4;
+        z-index: 1;
+    }
+
+    .div-center-border-tree > * {
+        position: relative;
+        z-index: 2;
+    }
+
+    .div-row {
+      display: flex;
+      flex-direction: row;
+      align-items: last baseline;
+      gap: 4px;
+    }
+
+    span {
+      font-family: "Lato", sans-serif;
+      font-weight: 400;
+      font-style: normal;
+      font-size: 15px;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 10px;
+      background-color: #bbc6fe;
+      transition: background-color 0.3s ease, width 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #8a9eff;
+    }
+    
+    button:active {
+      background-color: #8a9eff;
+      font-weight: 900;
+    }
+
+    .btn-row {
+      padding: 0px 20px;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .line {
+      width: 100%;
+      height: 1px;
+      background-color: #555;
+      margin: 0px auto; /* Center the line */
+    }
+
+    .main-prompt {
+      font-size: 60px;
+      margin-top: 20px;
+      /* margin-bottom: 20px;   */
+      text-align: end;
+    }
+
+    img {
+      width: 15%;
+      height: auto;
+    }
+    </style>
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <!-- <img src="assets/logo.svg" alt="logo"></img>
+      <a href="https://github.com/PratiekSonare">@PratiekSonare</a> -->
+
+      <div class="btn-row">
+        <button>DAILY</button>
+        <button>MONTHLY</button>
+      </div>
+
+      <div class="div-center">
+        <h4>PROMPTS SENT</h4>
+        <p id="count" class="main-prompt">Loading...</p>
+        <script src="totalCount.js"></script>
+      </div>
+  
+      <!-- <div class="line"></div> -->
+
+      <div class="grid-shyt">
+
+        <div class="div-center-border-water">
+          <h4>WATER USED</h4>
+          <div class="div-row">
+            <p id="waterUsed">Loading...</p>
+            <span>L</span>
+          </div>
+          <script src="water.js"></script>
+          <!-- <img src="assets/water.gif" alt="watergif"></img> -->
+        </div>
+      
+        <div class="div-center-border-fire">
+            <h4>CO2 EMITTED</h4>
+            <div class="div-row">
+              <p id="carbonUsed">Loading...</p>
+              <span class="">g</span>
+            </div>
+            <script src="carbon.js"></script>
+        </div>
+    
+        <div class="div-center-border-elec"> 
+            <h4>ELECTRICITY USED</h4>
+            <div class="div-row">
+              <p id="elecUsed">Loading...</p>
+              <span class="">kWh</span>
+            </div>
+
+            <script src="elec.js"></script>
+        </div>
+    
+        <div class="div-center-border-tree">
+            <h4>TREES UTILISED</h4>
+            <div class="div-row">
+              <p id="treeUsed">Loading...</p>
+              <!-- <span class="">trees</span> -->
+            </div>
+            <script src="tree.js"></script>
+        </div>
+      </div>
+
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <title>Prompt Count</title>
+    <style>
+      body {
+          font-family: Arial, sans-serif;
+          background-color: #bbc6fe;
+          color: #333;
+          margin: 0;
+          padding: 20px;
+          border: 6px solid #000;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          justify-self: center;
+      }
+      h2 {
+          color: #000; /* Green color for headings */
+          margin-bottom: 0px;
+          font-family: "Lato", sans-serif;
+            font-weight: 900;
+            font-style: normal;
+      }
+      p {
+          background-color: #fff;
+          border: 1px solid #ddd;
+          border-radius: 5px;
+          padding: 15px;
+          margin-bottom: 0px;
+          transition: box-shadow 0.3s;
+      }
+      p:hover {
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+      /* Flexbox layout for better alignment */
+      .container {
+          width: 350px;
+          display: flex;
+          flex-direction: column;
+          gap: 0px; 
+      }
+
+    .grid-shyt {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        gap: 10px; /* optional space between grid items */
+    }
+
+    .div-center {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      justify-items: center;
+    }
+
+    .lato-black {
+        font-family: "Lato", sans-serif;
+        font-weight: 900;
+        font-style: normal;
+    }
+
+
+    </style>
+  </head>
+  <body>
+
+    <div class="container">
+
+      <div class="div-center">
+        <h2>Prompts Sent</h2>
+        <p id="count">Loading...</p>
+        <script src="totalCount.js"></script>
+      </div>
+  
+      <div class="grid-shyt">
+
+          <div>
+              <h2>Water Used</h2>
+              <p id="waterUsed">Loading...</p>
+              <script src="water.js" class=""></script>L
+          </div>
+      
+          <div>
+              <h2>CO2 Emitted</h2>
+              <p id="carbonUsed">Loading...</p>
+              <script src="carbon.js"></script>
+          </div>
+      
+          <div>
+              <h2>Electricity Used</h2>
+              <p id="elecUsed">Loading...</p>
+              <script src="elec.js"></script>
+          </div>
+      
+          <div>
+              <h2>Trees Utilised</h2>
+              <p id="treeUsed">Loading...</p>
+              <script src="tree.js"></script>
+          </div>
+      </div>
+
+    </div>
+
+  </body>
+</html>
