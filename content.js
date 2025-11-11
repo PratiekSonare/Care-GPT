@@ -5,7 +5,7 @@ function injectPromptCounterButton() {
   function loadChartJS(callback) {
     if (window.Chart) return callback();
     const chartScript = document.createElement("script");
-    chartScript.src = chrome.runtime.getURL("chart.min.js");
+  chartScript.src = browser.runtime.getURL("chart.min.js");
     chartScript.onload = callback; 
     document.head.appendChild(chartScript);
   }
@@ -106,21 +106,21 @@ function injectPromptCounterButton() {
 
   async function getUserPromptCount() {
     const today = new Date().toISOString().split('T')[0];
-    const {promptCounts = {} } = await chrome.storage.local.get(['promptCounts']);
+  const { promptCounts = {} } = await browser.storage.local.get(['promptCounts']);
     const todaysCnt = promptCounts[today] || 0;
     return todaysCnt;
   }
 
   async function getUserTokenCount() {
     const today = new Date().toISOString().split('T')[0];
-    const {tokenCounts = {} } = await chrome.storage.local.get(['tokenCounts']);
+  const { tokenCounts = {} } = await browser.storage.local.get(['tokenCounts']);
     const todaysCnt = tokenCounts[today] || 0;
     return todaysCnt;
   }
 
   async function getUserTimeSpent() {
     const today = new Date().toISOString().split('T')[0];
-    const {timeSpent = {} } = await chrome.storage.local.get(['timeSpent']);
+  const { timeSpent = {} } = await browser.storage.local.get(['timeSpent']);
     const todaysTime = timeSpent[today] || 0;
     return todaysTime;
   }
@@ -162,12 +162,12 @@ function injectPromptCounterButton() {
     async function saveTimeToStorage(duration) {
       if (duration > 0) {
         const today = new Date().toISOString().split('T')[0];
-        const storageData = await chrome.storage.local.get(['timeSpent']);
-        const timeSpent = storageData.timeSpent || {};
+  const storageData = await browser.storage.local.get(['timeSpent']);
+  const timeSpent = storageData.timeSpent || {};
         
-        // Add duration in seconds
-        timeSpent[today] = (timeSpent[today] || 0) + Math.floor(duration / 1000);
-        await chrome.storage.local.set({ timeSpent });
+  // Add duration in seconds
+  timeSpent[today] = (timeSpent[today] || 0) + Math.floor(duration / 1000);
+  await browser.storage.local.set({ timeSpent });
         
         console.log(`Saved ${Math.floor(duration / 1000)} seconds to storage`);
       }
@@ -234,7 +234,7 @@ function injectPromptCounterButton() {
         
         if (promptDiff > 0 || tokenDiff > 0) {
           const today = new Date().toISOString().split("T")[0];
-          const storageData = await chrome.storage.local.get(["promptCounts", "tokenCounts", "timeSpent"]);
+          const storageData = await browser.storage.local.get(["promptCounts", "tokenCounts", "timeSpent"]);
           const promptCounts = storageData.promptCounts || {};
           const tokenCounts = storageData.tokenCounts || {};
           const timeSpent = storageData.timeSpent || {};
@@ -246,7 +246,7 @@ function injectPromptCounterButton() {
             tokenCounts[today] = (tokenCounts[today] || 0) + tokenDiff;
           }
           
-          await chrome.storage.local.set({ promptCounts, tokenCounts });
+          await browser.storage.local.set({ promptCounts, tokenCounts });
 
           const sortedDates = Object.keys(promptCounts).sort();
           const values = sortedDates.map(d => promptCounts[d]);
@@ -602,7 +602,7 @@ function injectPromptCounterButton() {
         const storedPromptCount = await getUserPromptCount();
         const storedTokenCount = await getUserTokenCount();
         const storedTimeSpent = await getUserTimeSpent();
-        chrome.storage.local.get(["promptCounts", "timeSpent"], ({ promptCounts = {}, timeSpent = {} }) => {
+        browser.storage.local.get(["promptCounts", "timeSpent"]).then(({ promptCounts = {}, timeSpent = {} }) => {
           const sortedDates = Object.keys(promptCounts).sort();
           const values = sortedDates.map(d => promptCounts[d]);
           const timeValues = sortedDates.map(d => timeSpent[d] || 0);

@@ -2,11 +2,12 @@
 <html>
   <head>
     <title>OAuth Callback</title>
+  <script src="browser-shim.js"></script>
     <script>
       // Just close the window after redirect is handled
       window.onload = () => {
         // Tell background script we got here
-        chrome.runtime.sendMessage({ type: "OAUTH_CALLBACK", url: window.location.href });
+        browser.runtime.sendMessage({ type: "OAUTH_CALLBACK", url: window.location.href });
       };
     </script>
   </head>

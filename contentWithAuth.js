@@ -8,7 +8,7 @@ function injectPromptCounterButton() {
   function loadChartJS(callback) {
     if (window.Chart) return callback();
     const chartScript = document.createElement("script");
-    chartScript.src = chrome.runtime.getURL("chart.min.js");
+  chartScript.src = browser.runtime.getURL("chart.min.js");
     chartScript.onload = callback;  // Wait for Chart.js before proceeding
     document.head.appendChild(chartScript);
   }
@@ -70,7 +70,7 @@ function injectPromptCounterButton() {
 
   function updatePromptCount(userId, newCount) {
     const today = new Date().toISOString().split("T")[0]; // "YYYY-MM-DD"
-    chrome.storage.sync.get(["promptCounts"], ({ promptCounts }) => {
+    browser.storage.sync.get(["promptCounts"]).then(({ promptCounts }) => {
       promptCounts = promptCounts || {};
 
       if (!promptCounts[userId]) promptCounts[userId] = {};
@@ -78,7 +78,7 @@ function injectPromptCounterButton() {
 
       promptCounts[userId][today] += newCount;
 
-      chrome.storage.sync.set({ promptCounts }, () => {
+      return browser.storage.sync.set({ promptCounts }).then(() => {
         console.log("Updated count:", promptCounts[userId][today]);
       });
     });
@@ -321,10 +321,9 @@ function injectPromptCounterButton() {
     const sb = createSidebarIfNeeded();
 
     // Authenticate once
-    chrome.runtime.sendMessage({ type: "GET_AUTH_TOKEN" }, (resp) => {
-      if (!resp.success) {
-        console.error("Auth failed", resp.error);
-        
+      browser.runtime.sendMessage({ type: "GET_AUTH_TOKEN" }).then((resp) => {
+      if (!resp || !resp.success) {
+        console.error("Auth failed", resp && resp.error);
         return;
       }
 
@@ -337,7 +336,7 @@ function injectPromptCounterButton() {
         .then(user => {
           const userId = user.id;
 
-          chrome.storage.sync.get(["promptCounts"], ({ promptCounts }) => {
+          browser.storage.sync.get(["promptCounts"]).then(({ promptCounts }) => {
             promptCounts = promptCounts || {};
             const userCounts = promptCounts[userId] || {};
 
@@ -349,7 +348,7 @@ function injectPromptCounterButton() {
             userCounts[today] = updatedCount;
             promptCounts[userId] = userCounts;
 
-            chrome.storage.sync.set({ promptCounts }, () => {
+            browser.storage.sync.set({ promptCounts }).then(() => {
               // Prepare chart data
               const sortedDates = Object.keys(userCounts).sort();
               const values = sortedDates.map(d => userCounts[d]);

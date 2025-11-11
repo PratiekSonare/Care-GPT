@@ -1,3 +1,4 @@
-chrome.storage.local.get('totalPromptCount', (result) => {
-  document.getElementById('elecUsed').textContent = (result.totalPromptCount * 0.05).toFixed(2) || 0;
+browser.storage.local.get('totalPromptCount').then((result) => {
+  const count = result.totalPromptCount || 0;
+  document.getElementById('elecUsed').textContent = (count * 0.05).toFixed(2);
 });

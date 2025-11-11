@@ -1,5 +1,5 @@
 {
-  "manifest_version": 3,
+  "manifest_version": 2,
   "name": "Prompt Counter",
   "version": "1.0",
   "permissions": ["identity", "storage", "scripting"],
@@ -8,20 +8,17 @@
     "scopes": ["https://www.googleapis.com/auth/userinfo.profile"]
   },
   "background": {
-    "service_worker": "background.js"
+    "scripts": ["browser-shim.js", "background.js"]
   },
   "content_scripts": [
     {
-      "matches": ["https://chatgpt.com/"], 
-      "js": [ "chart.min.js", "content.js"],
+      "matches": ["https://chatgpt.com/*"], 
+      "js": [ "browser-shim.js", "chart.min.js", "content.js"],
       "run_at": "document_idle"
     }
   ],
-  "web_accessible_resources": [{
-    "matches": ["<all_urls>"],
-    "resources": ["chart.min.js", "callback.html"]
-  }],
-  "action": {
+  "web_accessible_resources": ["chart.min.js", "callback.html", "browser-shim.js"],
+  "browser_action": {
     "default_popup": "popup.html",
     "default_icon": "assets/logo2.png"
   }
